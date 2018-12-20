@@ -9,13 +9,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace HoloToolkit.Unity.UX
-{
+namespace HoloToolkit.Unity.UX {
     /// <summary>
     /// Logic for the App Bar. Generates buttons, manages states.
     /// </summary>
-    public class AppBar : InteractionReceiver
-    {
+
+    public class AppBar : InteractionReceiver {
+
+        public GameObject floor;
+        public GameObject table;
+        public GameObject platter;
+        public GameObject stove;
+        public GameObject fridge;
+        public GameObject manager;
+        bool fridgeExists;
+        bool stoveExists;
+        bool tableExists;
+
         private float buttonWidth = 1.50f;
 
         /// <summary>
@@ -42,8 +52,8 @@ namespace HoloToolkit.Unity.UX
         /// <summary>
         /// Uses an alternate follow style that works better for very oblong objects
         /// </summary>
-        public bool UseTightFollow
-        {
+
+        public bool UseTightFollow {
             get { return useTightFollow; }
             set { useTightFollow = value; }
         }
@@ -53,10 +63,8 @@ namespace HoloToolkit.Unity.UX
         /// (not yet in use)
         /// </summary>
         [Serializable]
-        public struct ButtonTemplate
-        {
-            public ButtonTemplate(ButtonTypeEnum type, string name, string icon, string text, int defaultPosition, int manipulationPosition)
-            {
+        public struct ButtonTemplate {
+            public ButtonTemplate(ButtonTypeEnum type, string name, string icon, string text, int defaultPosition, int manipulationPosition) {
                 Type = type;
                 Name = name;
                 Icon = icon;
@@ -67,8 +75,7 @@ namespace HoloToolkit.Unity.UX
                 OnTappedEvent = null;
             }
 
-            public bool IsEmpty
-            {
+            public bool IsEmpty {
                 get { return string.IsNullOrEmpty(Name); }
             }
 
@@ -83,8 +90,7 @@ namespace HoloToolkit.Unity.UX
         }
 
         [Flags]
-        public enum ButtonTypeEnum
-        {
+        public enum ButtonTypeEnum {
             Custom = 0,
             Remove = 1,
             Adjust = 2,
@@ -93,21 +99,18 @@ namespace HoloToolkit.Unity.UX
             Done = 16
         }
 
-        public enum AppBarDisplayTypeEnum
-        {
+        public enum AppBarDisplayTypeEnum {
             Manipulation,
             Standalone
         }
 
-        public enum AppBarStateEnum
-        {
+        public enum AppBarStateEnum {
             Default,
             Manipulation,
             Hidden
         }
 
-        public BoundingBox BoundingBox
-        {
+        public BoundingBox BoundingBox {
             get { return boundingBox; }
             set { boundingBox = value; }
         }
@@ -117,8 +120,7 @@ namespace HoloToolkit.Unity.UX
         /// <summary>
         /// a reference to the boundingBoxRig that the appbar turns on and off
         /// </summary>
-        public BoundingBoxRig BoundingRig
-        {
+        public BoundingBoxRig BoundingRig {
             get { return boundingRig; }
             set { boundingRig = value; }
         }
@@ -133,8 +135,7 @@ namespace HoloToolkit.Unity.UX
         public bool UseAdjust = true;
         public bool UseHide = true;
 
-        public ButtonTemplate[] Buttons
-        {
+        public ButtonTemplate[] Buttons {
             get { return buttons; }
             set { buttons = value; }
         }
@@ -172,27 +173,23 @@ namespace HoloToolkit.Unity.UX
         private int numHiddenButtons;
         private BoundingBoxHelper helper;
 
-        public void Reset()
-        {
+        public void Reset() {
             State = AppBarStateEnum.Default;
             FollowBoundingBox(false);
             lastTimeTapped = Time.time + coolDownTime;
         }
 
-        public void Start()
-        {
-            State = AppBarStateEnum.Default;
+        public void Start() {
+            manager = GameObject.Find("Manager");
+            State = AppBarStateEnum.Hidden;
 
-            if (interactables.Count == 0)
-            {
+            if (interactables.Count == 0) {
                 RefreshTemplates();
-                for (int i = 0; i < DefaultButtons.Length; i++)
-                {
+                for (int i = 0; i < DefaultButtons.Length; i++) {
                     CreateButton(DefaultButtons[i], null);
                 }
 
-                for (int i = 0; i < buttons.Length; i++)
-                {
+                for (int i = 0; i < buttons.Length; i++) {
                     CreateButton(buttons[i], CustomButtonIconProfile);
                 }
             }
@@ -200,10 +197,8 @@ namespace HoloToolkit.Unity.UX
             helper = new BoundingBoxHelper();
         }
 
-        protected override void InputClicked(GameObject obj, InputClickedEventData eventData)
-        {
-            if (Time.time < lastTimeTapped + coolDownTime)
-            {
+        protected override void InputClicked(GameObject obj, InputClickedEventData eventData) {
+            if (Time.time < lastTimeTapped + coolDownTime) {
                 return;
             }
 
@@ -211,8 +206,7 @@ namespace HoloToolkit.Unity.UX
 
             base.InputClicked(obj, eventData);
 
-            switch (obj.name)
-            {
+            switch (obj.name) {
                 case "Remove":
                     // Destroy the target object, Bounding Box, Bounding Box Rig and App Bar
                     boundingBox.Target.GetComponent<BoundingBoxRig>().Deactivate();
@@ -223,6 +217,7 @@ namespace HoloToolkit.Unity.UX
 
                 case "Adjust":
                     // Make the bounding box active so users can manipulate it
+                    boundingBox.Target.GetComponent<Rigidbody>().isKinematic = true;
                     State = AppBarStateEnum.Manipulation;
                     // Activate BoundingBoxRig
                     boundingBox.Target.GetComponent<BoundingBoxRig>().Activate();
@@ -239,7 +234,42 @@ namespace HoloToolkit.Unity.UX
                     boundingBox.Target.GetComponent<BoundingBoxRig>().Deactivate();
                     break;
 
+/*              case "Duplicate":
+                    Vector3 offset = new Vector3(-.4f, 0, 0);
+                    Instantiate(boundingBox.Target, boundingBox.Target.transform.position + offset, new Quaternion(90f, 90f, 90f, 1f));
+                    break;*/
+
+                case "Spawn Table":
+                    if (!tableExists) {
+                        Instantiate(table, boundingBox.Target.transform.position + new Vector3(0f, 1f, 2f), Quaternion.identity);
+                        tableExists = true;
+                    }
+                    break;
+
+                case "Spawn Stove":
+                    if (!stoveExists) {
+                        Instantiate(stove, boundingBox.Target.transform.position + new Vector3(1f, 1f, 4.2f), Quaternion.identity);
+                        stoveExists = true;
+                    }
+                    break;
+
+                case "Spawn Fridge":
+                    if (!fridgeExists) {
+                        Instantiate(fridge, boundingBox.Target.transform.position + new Vector3(0f, 1f, 2f), Quaternion.identity);
+                        fridgeExists = true;
+                    }
+                    break;
+
+                case "Spawn Platter":
+                    Instantiate(platter, boundingBox.Target.transform.position + new Vector3(0f, 1f, 2f), Quaternion.identity);
+                    break;
+
+                case "Next":
+                    manager.GetComponent<GameController>().proceedText();
+                    break;
+
                 case "Done":
+                    boundingBox.Target.GetComponent<Rigidbody>().isKinematic = false;
                     State = AppBarStateEnum.Default;
                     // Deactivate BoundingBoxRig
                     boundingBox.Target.GetComponent<BoundingBoxRig>().Deactivate();
@@ -250,15 +280,12 @@ namespace HoloToolkit.Unity.UX
             }
         }
 
-        private void CreateButton(ButtonTemplate template, ButtonIconProfile customIconProfile)
-        {
-            if (template.IsEmpty)
-            {
+        private void CreateButton(ButtonTemplate template, ButtonIconProfile customIconProfile) {
+            if (template.IsEmpty) {
                 return;
             }
 
-            switch (template.Type)
-            {
+            switch (template.Type) {
                 case ButtonTypeEnum.Custom:
                     NumDefaultButtons++;
                     break;
@@ -296,17 +323,13 @@ namespace HoloToolkit.Unity.UX
             mtb.Initialize(this, template, customIconProfile);
         }
 
-        private void FollowBoundingBox(bool smooth)
-        {
-            if (boundingBox == null)
-            {
-                if (DisplayType == AppBarDisplayTypeEnum.Manipulation)
-                {
+        private void FollowBoundingBox(bool smooth) {
+            if (boundingBox == null) {
+                if (DisplayType == AppBarDisplayTypeEnum.Manipulation) {
                     // Hide our buttons
                     baseRenderer.SetActive(false);
                 }
-                else
-                {
+                else {
                     baseRenderer.SetActive(true);
                 }
                 return;
@@ -320,8 +343,7 @@ namespace HoloToolkit.Unity.UX
             Vector3 headPosition = Camera.main.transform.position;
             LayerMask ignoreLayers = new LayerMask();
             List<Vector3> boundsPoints = new List<Vector3>();
-            if (boundingBox != null)
-            {
+            if (boundingBox != null) {
                 helper.UpdateNonAABoundingBoxCornerPositions(boundingBox.Target, boundsPoints, ignoreLayers);
                 int followingFaceIndex = helper.GetIndexOfForwardFace(headPosition);
                 Vector3 faceNormal = helper.GetFaceNormal(followingFaceIndex);
@@ -340,12 +362,10 @@ namespace HoloToolkit.Unity.UX
             transform.eulerAngles = eulerAngles;
         }
 
-        private void Update()
-        {
+        private void Update() {
             FollowBoundingBox(true);
 
-            switch (State)
-            {
+            switch (State) {
                 case AppBarStateEnum.Default:
                     targetBarSize = new Vector3(NumDefaultButtons * buttonWidth, buttonWidth, 1f);
                     break;
@@ -365,13 +385,10 @@ namespace HoloToolkit.Unity.UX
             backgroundBar.transform.localScale = Vector3.Lerp(backgroundBar.transform.localScale, targetBarSize, 0.5f);
         }
 
-        private void RefreshTemplates()
-        {
+        private void RefreshTemplates() {
             int numCustomButtons = 0;
-            for (int i = 0; i < buttons.Length; i++)
-            {
-                if (!buttons[i].IsEmpty)
-                {
+            for (int i = 0; i < buttons.Length; i++) {
+                if (!buttons[i].IsEmpty) {
                     numCustomButtons++;
                 }
             }
@@ -379,19 +396,16 @@ namespace HoloToolkit.Unity.UX
             var defaultButtonsList = new List<ButtonTemplate>();
 
             // Create our default button templates based on user preferences
-            if (UseRemove)
-            {
+            if (UseRemove) {
                 defaultButtonsList.Add(GetDefaultButtonTemplateFromType(ButtonTypeEnum.Remove, numCustomButtons, UseHide, UseAdjust));
             }
 
-            if (UseAdjust)
-            {
+            if (UseAdjust) {
                 defaultButtonsList.Add(GetDefaultButtonTemplateFromType(ButtonTypeEnum.Adjust, numCustomButtons, UseHide, UseAdjust));
                 defaultButtonsList.Add(GetDefaultButtonTemplateFromType(ButtonTypeEnum.Done, numCustomButtons, UseHide, UseAdjust));
             }
 
-            if (UseHide)
-            {
+            if (UseHide) {
                 defaultButtonsList.Add(GetDefaultButtonTemplateFromType(ButtonTypeEnum.Hide, numCustomButtons, UseHide, UseAdjust));
                 defaultButtonsList.Add(GetDefaultButtonTemplateFromType(ButtonTypeEnum.Show, numCustomButtons, UseHide, UseAdjust));
             }
@@ -399,8 +413,7 @@ namespace HoloToolkit.Unity.UX
         }
 
 #if UNITY_EDITOR
-        public void EditorRefreshTemplates()
-        {
+        public void EditorRefreshTemplates() {
             RefreshTemplates();
         }
 #endif
@@ -413,12 +426,10 @@ namespace HoloToolkit.Unity.UX
         /// <param name="useHide"></param>
         /// <param name="useAdjust"></param>
         /// <returns></returns>
-        private static ButtonTemplate GetDefaultButtonTemplateFromType(ButtonTypeEnum type, int numCustomButtons, bool useHide, bool useAdjust)
-        {
+        private static ButtonTemplate GetDefaultButtonTemplateFromType(ButtonTypeEnum type, int numCustomButtons, bool useHide, bool useAdjust) {
             // Button position is based on custom buttons
             // In the app bar, Hide/Show
-            switch (type)
-            {
+            switch (type) {
                 case ButtonTypeEnum.Custom:
                     return new ButtonTemplate(
                         ButtonTypeEnum.Custom,
@@ -431,8 +442,7 @@ namespace HoloToolkit.Unity.UX
                 case ButtonTypeEnum.Adjust:
                     int adjustPosition = numCustomButtons + 1;
 
-                    if (!useHide)
-                    {
+                    if (!useHide) {
                         adjustPosition--;
                     }
 
@@ -464,13 +474,11 @@ namespace HoloToolkit.Unity.UX
 
                 case ButtonTypeEnum.Remove:
                     int removePosition = numCustomButtons + 1;
-                    if (useAdjust)
-                    {
+                    if (useAdjust) {
                         removePosition++;
                     }
 
-                    if (!useHide)
-                    {
+                    if (!useHide) {
                         removePosition--;
                     }
 

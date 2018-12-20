@@ -1,0 +1,27 @@
+fileFormatVersion: 2
+guid: f99461d2b49690946a045279fae1299d
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: TitilliumText22L
+  fontNames:
+  - TitilliumText22L
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 2b8219420e0850f49a62b7aa6adbae9f, type: 3}
+  - {fileID: 12800000, guid: 53a1d7fc30fd1dc4b88ecccefa24a74d, type: 3}
+  - {fileID: 12800000, guid: 7e9ab65dd323f0546ad01966c04a6cfc, type: 3}
+  - {fileID: 12800000, guid: 3ee8500e8321e25468ccfc4ef442c4e5, type: 3}
+  - {fileID: 12800000, guid: 608e3c3ea69302f408211af3ed7d3416, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

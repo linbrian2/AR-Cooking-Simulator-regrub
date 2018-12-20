@@ -5,6 +5,14 @@ TagManager:
   serializedVersion: 2
   tags:
   - Editor Mode
+  - Table
+  - Fridge
+  - Stove
+  - Riceball
+  - Pizza
+  - Steak
+  - Uncooked Steak
+  - Rice Bowl
   layers:
   - Default
   - TransparentFX

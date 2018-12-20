@@ -8,15 +8,15 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications: []
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 0}
+  m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1275815092924048}
-  m_IsPrefabParent: 1
+  m_IsPrefabAsset: 1
 --- !u!1 &1093294406509342
 GameObject:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4777743242153572}
   - component: {fileID: 33920644740031820}
@@ -31,9 +31,9 @@ GameObject:
 --- !u!1 &1275815092924048
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4773597359991020}
   - component: {fileID: 114050950401502068}
@@ -47,9 +47,9 @@ GameObject:
 --- !u!1 &1374918788334882
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4691479528535670}
   m_Layer: 0
@@ -62,7 +62,7 @@ GameObject:
 --- !u!4 &4691479528535670
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1374918788334882}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -76,7 +76,7 @@ Transform:
 --- !u!4 &4773597359991020
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1275815092924048}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -90,7 +90,7 @@ Transform:
 --- !u!4 &4777743242153572
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1093294406509342}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
@@ -103,7 +103,7 @@ Transform:
 --- !u!23 &23284320966475202
 MeshRenderer:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1093294406509342}
   m_Enabled: 1
@@ -113,6 +113,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: f0dfd2a486bf27644b5fd4e943880452, type: 2}
   m_StaticBatchInfo:
@@ -137,14 +138,14 @@ MeshRenderer:
 --- !u!33 &33920644740031820
 MeshFilter:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1093294406509342}
   m_Mesh: {fileID: 4300006, guid: c68a88ae5c5b91f41b94c83aa4c4196e, type: 3}
 --- !u!114 &114050950401502068
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1275815092924048}
   m_Enabled: 1
@@ -155,8 +156,15 @@ MonoBehaviour:
   interactables: []
   Targets: []
   lockFocus: 0
+  floor: {fileID: 1916556614548512, guid: 56c7e5a0554aa0a42937fa07c459b1ab, type: 2}
+  table: {fileID: 1009533995951146, guid: 319e11594574dc04e8a827ec9c01aef5, type: 2}
+  platter: {fileID: 1261598402917556, guid: 98cab2166aa33ef48b70a85b4a4ba649, type: 2}
+  stove: {fileID: 1844215483939886, guid: 7ed2fc1ce4af3a941898575798c08e3e, type: 2}
+  fridge: {fileID: 1032614044127792, guid: 4b8214e0c1299c941b03005bee34f38c, type: 2}
+  manager: {fileID: 1424801690059132, guid: 2678b1df011c26d489fedfe88cfbc0c5, type: 2}
   HoverOffsetYScale: 0.35
   HoverOffsetZ: 0
+  useTightFollow: 0
   SquareButtonPrefab: {fileID: 1210820392543280, guid: 40da8a1b3b26ba743b892d890b95a9f9,
     type: 2}
   UseRemove: 1
@@ -165,7 +173,67 @@ MonoBehaviour:
   DisplayType: 0
   State: 0
   CustomButtonIconProfile: {fileID: 0}
-  buttons: []
+  buttons:
+  - DefaultPosition: 1
+    ManipulationPosition: 0
+    Type: 0
+    Name: Spawn Table
+    Icon: Default
+    Text: Spawn a Table
+    EventTarget: {fileID: 0}
+    OnTappedEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+  - DefaultPosition: 2
+    ManipulationPosition: 1
+    Type: 0
+    Name: Spawn Stove
+    Icon: Default
+    Text: Spawn a Stove
+    EventTarget: {fileID: 0}
+    OnTappedEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+  - DefaultPosition: 3
+    ManipulationPosition: 2
+    Type: 0
+    Name: Spawn Fridge
+    Icon: Default
+    Text: Spawn a Fridge
+    EventTarget: {fileID: 0}
+    OnTappedEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+  - DefaultPosition: 4
+    ManipulationPosition: 3
+    Type: 0
+    Name: Spawn Platter
+    Icon: Default
+    Text: Spawn Platter
+    EventTarget: {fileID: 0}
+    OnTappedEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+  - DefaultPosition: 5
+    ManipulationPosition: 4
+    Type: 0
+    Name: Next
+    Icon: Default
+    Text: Next
+    EventTarget: {fileID: 0}
+    OnTappedEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
   buttonParent: {fileID: 4691479528535670}
   baseRenderer: {fileID: 1275815092924048}
   backgroundBar: {fileID: 1093294406509342}
