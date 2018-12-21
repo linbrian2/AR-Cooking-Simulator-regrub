@@ -1,7 +1,7 @@
 # AR-Cooking-Simulator-regrub
 
-## Summary
-The user will seat himself in front of a table, or an object that serves essentially the same purpose. When the user starts the simulation, he will be tasked to cook certain foods. The goal is to teach them how to cook real life food items, through putting in the correct ingredients, performing tasks in the correct order, and getting the right quantities.
+## Objective
+In this simulation, your goal is to create the food items designated by the cookbook. You will follow instructions layed out on the screen in order to do so. You will create the tools necessary for cooking these items, as well as work with ingredients. For example, a pineapple pizza would be created by combining pineapple, cheese, bread, and tomato on a platter, then cooking the combination with a stove.
 
 ## Modes
 There are 2 different modes you may use for the cooking simulation.
@@ -17,9 +17,6 @@ Navigate to the scene to open the project. It can be found in the directory: `Re
 In AR Mode, you will scan your environment to create a spatial map of your surroundings. This enables computer generated objects to interact with the real-life environment. Movement is done simply by moving around in the environment. Looking around is done by looking around in the environment. An airtap gesture allows you to interact with objects, such as moving them around, changing their size and orientation, or performing specific tasks.
 
 In Editor Mode, a platform will exist to hold all objects. WASD/Arrow keys enable movement, and the mouse allows you to change your camera view. You may interact with objects by doing Shift + Left Click. 
-
-## Objective
-In this simulation, your goal is to create the food items designated by the cookbook. You will follow instructions layed out on the screen in order to do so. You will create the tools necessary for cooking these items, as well as work with ingredients. For example, a pineapple pizza would be created by combining pineapple, cheese, bread, and tomato on a platter, then cooking the combination with a stove.
 
 ## Project Features
 *Spatial Mapping* – It will be used to create physical space that ingredients, the cookbook, and cooking items (e.g. table, bowl, stove, etc.) can reside in.
