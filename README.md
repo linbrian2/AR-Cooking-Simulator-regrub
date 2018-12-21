@@ -6,12 +6,14 @@ In this simulation, your goal is to create the food items designated by the cook
 ## Modes
 There are 2 different modes you may use for the cooking simulation.
 
-1. Augmented Reality (AR) Mode: This can be done by disabling the platform in the Unity Editor, then building to the Universal Windows Platform. A Microsoft HoloLens is required for this.
+1. Editor Mode: Simply press the play button in the Unity Editor, or build it to the standard plaform: PC, Mac, & Linux Standalone.
 
-2. Editor Mode: Simply press the play button in the Unity Editor, or build it to the standard plaform: PC, Mac, & Linux Standalone.
+2. Augmented Reality (AR) Mode: This can be done by disabling the platform in the Unity Editor, then building to the Universal Windows Platform. A Microsoft HoloLens is required for this.
 
 ## Getting Started
-Navigate to the scene to open the project. It can be found in the directory: `Regrub-AR-Cooking-Simulator\Assets\Scenes\regrub.unity`. Opening this file will bring you to the Unity Editor. You will have to make sure to have Unity installed in order to do so. From here, you may simply get started in Editor Mode by pressing the play button. You are also free to make modifications to the project while in Editor Mode. Alternatively, you have AR mode. Follow the instructions above, then build to UWP to a folder. It will create the file `regrub.sln`, which you will then open. Once there, make sure to have a Microsoft HoloLens ready, as well as it's address. With the solutions file opened, on the toolbar at the top, change the Configuration to "Debug" and the Platform to "x86". Build to a remote machine, insert the address of the HoloLens device, run the file, and wait for it to compile onto the device. After a while, the HoloLens will have build the project, and you can enjoy the simulation!
+Navigate to the scene to open the project. It can be found in the directory: `Regrub-AR-Cooking-Simulator\Assets\Scenes\regrub.unity`. Opening this file will bring you to the Unity Editor. You will have to make sure to have Unity installed in order to do so. From here, you may simply get started in Editor Mode by pressing the play button. You are also free to make modifications to the project while in Editor Mode. 
+
+Alternatively, you have AR mode. Follow the instructions above, then build to UWP to a folder. It will create the file `regrub.sln`, which you will then open. Once there, make sure to have a Microsoft HoloLens ready, as well as it's address. With the solutions file opened, on the toolbar at the top, change the Configuration to "Debug" and the Platform to "x86". Build to a remote machine, insert the address of the HoloLens device, run the file, and wait for it to compile onto the device. After a while, the HoloLens will have build the project, and you can enjoy the simulation!
 
 ## Controls
 In AR Mode, you will scan your environment to create a spatial map of your surroundings. This enables computer generated objects to interact with the real-life environment. Movement is done simply by moving around in the environment. Looking around is done by looking around in the environment. An airtap gesture allows you to interact with objects, such as moving them around, changing their size and orientation, or performing specific tasks.
